@@ -23,6 +23,7 @@ namespace SKA_Novel
         public MainWindow()
         {
             InitializeComponent();
+            txtMainText.Effect = null;
         }
     }
 }
