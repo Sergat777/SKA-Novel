@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using SKA_Novel.Classes.Technical;
 
 
 
@@ -22,9 +23,13 @@ namespace SKA_Novel
     /// </summary>
     public partial class MainWindow : Window
     {
+        int line = -1;
+        public static string[] CurrentStory;
+
         public MainWindow()
         {
             InitializeComponent();
+            CurrentStory = MediaHelper.BeatStringToLines(MediaHelper.GetTextFromFile("Test"));
         }
 
         private void btBack_MouseDown(object sender, MouseButtonEventArgs e)
@@ -34,7 +39,12 @@ namespace SKA_Novel
 
         private void brdMainText_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            txtMainText.Text = Classes.Technical.MediaHelper.GetTextFromFile("Test");
+            if (line + 1 < CurrentStory.Count())
+            {
+                line++;
+                txtMainText.Text = CurrentStory[line];
+            }
         }
+        //public static readonly string[] CurrentStory;
     }
 }

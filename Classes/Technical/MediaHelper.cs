@@ -14,13 +14,17 @@ namespace SKA_Novel.Classes.Technical
         public static readonly string BackgroundsDirectory = ImagesDirectory + "Backgrounds\\";
         public static readonly string FilesDirectory = BaseDirectory + "Files\\";
         public static readonly string MusicDirectory = BaseDirectory + "Music\\";
-        public static readonly string[] CurrentStory;
 
         public static string GetTextFromFile(string fileName)
         {
             StreamReader reader = new StreamReader(FilesDirectory + fileName + ".txt");
             string result = reader.ReadToEnd();
             return result;
+        }
+
+        public static string[] BeatStringToLines(string targetText, string separator = "\r\n")
+        {
+            return targetText.Split(new string[] {separator}, StringSplitOptions.None);
         }
     }
 }
