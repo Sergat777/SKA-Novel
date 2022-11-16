@@ -13,6 +13,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+
+
 namespace SKA_Novel
 {
     /// <summary>
@@ -28,6 +30,11 @@ namespace SKA_Novel
         private void btBack_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Close();
+        }
+
+        private void brdMainText_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            txtMainText.Text = Classes.Technical.MediaHelper.GetTextFromFile("Test");
         }
     }
 }
