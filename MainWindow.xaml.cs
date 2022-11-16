@@ -23,16 +23,13 @@ namespace SKA_Novel
     /// </summary>
     public partial class MainWindow : Window
     {
-        int line = -1;
-        public static string[] CurrentStory;
-
         public MainWindow()
         {
             InitializeComponent();
             ControlsManager.AppMainWindow = this;
             MediaHelper.SetBackground("outside");
             MediaHelper.SetGameMusic("standartMusic");
-            CurrentStory = MediaHelper.BeatStringToLines(MediaHelper.GetTextFromFile("Test"));
+            StoryCompilator.CurrentStory = MediaHelper.BeatStringToLines(MediaHelper.GetTextFromFile("Test"));
         }
 
         private void btBack_MouseDown(object sender, MouseButtonEventArgs e)
@@ -42,12 +39,7 @@ namespace SKA_Novel
 
         private void brdMainText_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            if (line + 1 < CurrentStory.Count())
-            {
-                line++;
-                txtMainText.Text = CurrentStory[line];
-            }
+            txtMainText.Text = StoryCompilator.GetNextLine();
         }
-        //public static readonly string[] CurrentStory;
     }
 }
