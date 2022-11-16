@@ -29,6 +29,9 @@ namespace SKA_Novel
         public MainWindow()
         {
             InitializeComponent();
+            ControlsManager.AppMainWindow = this;
+            MediaHelper.SetBackground("outside");
+            MediaHelper.SetGameMusic("standartMusic");
             CurrentStory = MediaHelper.BeatStringToLines(MediaHelper.GetTextFromFile("Test"));
         }
 
