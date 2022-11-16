@@ -26,8 +26,18 @@
 
         <Border x:Name="brdMainText" Background="#000" BorderBrush="#fff" BorderThickness="2" Opacity="0.65"
                 CornerRadius="20" Grid.Row="1" Margin="15" Grid.ColumnSpan="3">
-            <TextBlock x:Name="txtMainText" Margin="10" FontSize="36" Foreground="#fff" TextAlignment="Center" TextWrapping="Wrap"
+            
+            <DockPanel>
+
+                <Border x:Name="btBack" BorderBrush="DarkRed" BorderThickness="2" Background="#fff"
+                        CornerRadius="25" Margin="15" Height="50" Width="50"
+                        VerticalAlignment="Bottom" MouseDown="btBack_MouseDown"/>
+                
+                <TextBlock x:Name="txtMainText" Margin="10" FontSize="36" Foreground="#fff" TextAlignment="Center" TextWrapping="Wrap"
                        Text="Драсьте, это снова я, давно не виделись! Добро пожаловать в SKA Novel!"/>
+
+            </DockPanel>
+            
         </Border>
 
         <Border Background="#000" Opacity="0.75" VerticalAlignment="Center" Grid.ColumnSpan="3" CornerRadius="50">

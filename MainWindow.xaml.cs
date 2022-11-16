@@ -23,7 +23,11 @@ namespace SKA_Novel
         public MainWindow()
         {
             InitializeComponent();
-            txtMainText.Effect = null;
+        }
+
+        private void btBack_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Close();
         }
     }
 }
