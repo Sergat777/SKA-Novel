@@ -19,10 +19,13 @@ namespace SKA_Novel.Classes.Game
             Text = optionText;
             MouseDown += GameOption_MouseDown;
 
-            
-            FontSize = 32;
+            TextAlignment = TextAlignment.Center;
+            TextWrapping = TextWrapping.Wrap;
+            FontSize = 42;
+            FontWeight = FontWeights.Bold;
+            FontStyle = FontStyles.Italic;
             Foreground = Brushes.White;
-            Margin = new Thickness(10);
+            Margin = new Thickness(20);
         }
 
         private void GameOption_MouseDown(object sender, MouseButtonEventArgs e)

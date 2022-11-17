@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SKA_Novel"
         mc:Ignorable="d"
-        Title="SKA Novel" Height="450" Width="800" ResizeMode="NoResize" WindowState="Maximized" WindowStyle="None">
+        Title="SKA Novel" Height="450" Width="800" ResizeMode="NoResize" WindowState="Maximized" WindowStyle="None"
+        Background="#000">
     
     <Grid>
 
@@ -22,23 +23,38 @@
         <Image x:Name="imgHeroPosition1" Grid.Column="0" Stretch="UniformToFill"  Grid.RowSpan="2"/>
         <Image x:Name="imgHeroPosition2" Grid.Column="1" Stretch="UniformToFill"  Grid.RowSpan="2"/>
 
+
+        <Border x:Name="btClose" BorderBrush="DarkRed" BorderThickness="2" Background="#fff" Grid.Column="2"
+                VerticalAlignment="Top" HorizontalAlignment="Right" CornerRadius="40" Margin="15"
+                Height="65" Width="65" MouseDown="btClose_MouseDown">
+            <Image Source="/bin/Debug/Resources/Images/cancel.png"/>
+        </Border>
+
+        <Border x:Name="btVolume" BorderBrush="DarkRed" BorderThickness="2" Background="#fff"
+                VerticalAlignment="Top" HorizontalAlignment="Left" CornerRadius="40" Margin="15"
+                Height="65" Width="65" MouseDown="btVolume_MouseDown">
+            <Image x:Name="imgVolume" Source="/bin/Debug/Resources/Images/volume.png"/>
+        </Border>
+        
         <Border x:Name="brdMainText" Background="#000" BorderBrush="#fff" BorderThickness="2" Opacity="0.65"
                 CornerRadius="20" Grid.Row="1" Margin="15" Grid.ColumnSpan="2" MouseDown="brdMainText_MouseDown">
-            
+
             <DockPanel>
 
-                <Border x:Name="btBack" BorderBrush="DarkRed" BorderThickness="2" Background="#fff"
-                        CornerRadius="25" Margin="15" Height="50" Width="50"
-                        VerticalAlignment="Bottom" MouseDown="btBack_MouseDown"/>
-                
+                <Border x:Name="btBack" BorderBrush="DarkRed" BorderThickness="2" Background="#fff" VerticalAlignment="Bottom"
+                            CornerRadius="40" Margin="10" Height="65" Width="65" MouseDown="btBack_MouseDown">
+                    <Image Source="/bin/Debug/Resources/Images/BackArrow.png"/>
+                </Border>
+
                 <TextBlock x:Name="txtMainText" Margin="10"/>
 
             </DockPanel>
             
         </Border>
 
-        <Border Background="#000" Opacity="0.75" VerticalAlignment="Center" Grid.ColumnSpan="2" CornerRadius="50">
-            <StackPanel x:Name="stckPnlOptions" HorizontalAlignment="Center"/>
+        <Border Background="#000" Opacity="0.75" VerticalAlignment="Center" HorizontalAlignment="Center"
+                Grid.ColumnSpan="2" CornerRadius="50" Margin="25">
+            <StackPanel x:Name="stckPnlOptions" HorizontalAlignment="Center" Margin="10"/>
         </Border>
         
     </Grid>

@@ -18,11 +18,11 @@ namespace SKA_Novel.Classes.Technical
         public static readonly string FilesDirectory = BaseDirectory + "Files\\";
         public static readonly string MusicDirectory = BaseDirectory + "Music\\";
 
-        private static MediaPlayer _currentMusic = new MediaPlayer();
+        public static MediaPlayer MainMusicPlayer = new MediaPlayer();
 
         public MediaHelper()
         {
-            _currentMusic.MediaEnded += MusicFinish;
+            MainMusicPlayer.MediaEnded += MusicFinish;
         }
 
         public static string GetTextFromFile(string fileName)
@@ -47,16 +47,16 @@ namespace SKA_Novel.Classes.Technical
 
         public static void SetGameMusic(string musicName)
         {
-            _currentMusic.Stop();
-            _currentMusic.Open(new Uri(MusicDirectory + musicName + ".wav"));
+            MainMusicPlayer.Stop();
+            MainMusicPlayer.Open(new Uri(MusicDirectory + musicName + ".wav"));
 
-            _currentMusic.Play();
+            MainMusicPlayer.Play();
         }
 
         private static void MusicFinish(object sender, EventArgs e)
         {
-            _currentMusic.Position = TimeSpan.Zero;
-            _currentMusic.Play();
+            MainMusicPlayer.Position = TimeSpan.Zero;
+            MainMusicPlayer.Play();
         }
     }
 }

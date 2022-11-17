@@ -39,8 +39,6 @@ namespace SKA_Novel.Classes.Technical
                 CompilateString(CurrentStory[LineOfStory]);
 
             new TypingTimer(ControlsManager.MainText, CurrentStory[LineOfStory]);
-
-            //ControlsManager.MainText.Text = CurrentStory[LineOfStory];
         }
 
         private static void CompilateString(string codeString)
