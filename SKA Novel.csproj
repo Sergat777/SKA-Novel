@@ -67,6 +67,7 @@
     <Compile Include="Classes\Technical\ControlsManager.cs" />
     <Compile Include="Classes\Technical\MediaHelper.cs" />
     <Compile Include="Classes\Technical\StoryCompilator.cs" />
+    <Compile Include="Classes\Technical\TypingTimer.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

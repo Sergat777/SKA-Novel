@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Threading;
 
 namespace SKA_Novel.Classes.Technical
 {
@@ -15,6 +16,7 @@ namespace SKA_Novel.Classes.Technical
         public static TextBlock MainText { get; set; }
         public static Image HeroPosition1 { get; set; }
         public static Image HeroPosition2 { get; set; }
-        public static Image HeroPosition3 { get; set; }
+        public static TypingTimer Timer { get; set; }
+
     }
 }

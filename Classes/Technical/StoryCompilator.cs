@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace SKA_Novel.Classes.Technical
 {
@@ -37,7 +38,9 @@ namespace SKA_Novel.Classes.Technical
             if (CurrentStory[LineOfStory][0] == '*')
                 CompilateString(CurrentStory[LineOfStory]);
 
-            ControlsManager.MainText.Text = CurrentStory[LineOfStory];
+            new TypingTimer(ControlsManager.MainText, CurrentStory[LineOfStory]);
+
+            //ControlsManager.MainText.Text = CurrentStory[LineOfStory];
         }
 
         private static void CompilateString(string codeString)
