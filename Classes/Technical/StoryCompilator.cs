@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 
 namespace SKA_Novel.Classes.Technical
 {
@@ -22,7 +24,9 @@ namespace SKA_Novel.Classes.Technical
             {"SetBackground", SetBackground},
             {"SetMusic", SetMusic},
             {"GoNextFile", GoNextFile},
-            {"CreateOptionBlock", CreateOptionBlock}
+            {"CreateOptionBlock", CreateOptionBlock},
+            {"AddHero",  AddHero},
+            {"ClearHero", ClearHero}
         };
 
         public static void GoNextLine()
@@ -62,6 +66,27 @@ namespace SKA_Novel.Classes.Technical
         public static void SetMusic(string codeString)
         {
             MediaHelper.SetGameMusic(GetArguments(codeString));
+        }
+
+        public static void AddHero(string codeString)
+        {
+            string[] arguments = GetArguments(codeString).Split(',');
+            byte position = Convert.ToByte(arguments[1]);
+
+            if (position == 1)
+                ControlsManager.HeroPosition1.Source = new BitmapImage(new Uri(MediaHelper.ImagesDirectory + arguments[0] + ".png"));
+            if (position == 2)
+                ControlsManager.HeroPosition2.Source = new BitmapImage(new Uri(MediaHelper.ImagesDirectory + arguments[0] + ".png"));
+        }
+
+        public static void ClearHero(string codeString)
+        {
+            byte position = Convert.ToByte(GetArguments(codeString));
+
+            if (position == 1)
+                ControlsManager.HeroPosition1.Source = null;
+            if (position == 2)
+                ControlsManager.HeroPosition2.Source = null;
         }
 
         public static void GoNextFile(string codeString)

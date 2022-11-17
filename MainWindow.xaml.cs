@@ -31,6 +31,9 @@ namespace SKA_Novel
             ControlsManager.OptionPanel = stckPnlOptions;
             ControlsManager.MainTextPanel = brdMainText;
             ControlsManager.MainText = txtMainText;
+            ControlsManager.HeroPosition1 = imgHeroPosition1;
+            ControlsManager.HeroPosition2 = imgHeroPosition2;
+
             StoryCompilator.CurrentStory = MediaHelper.BeatStringToLines(MediaHelper.GetTextFromFile("Test"));
             StoryCompilator.GoNextLine();
         }
