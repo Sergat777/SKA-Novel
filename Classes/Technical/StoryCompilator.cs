@@ -21,10 +21,11 @@ namespace SKA_Novel.Classes.Technical
         {
             {"SetBackground", SetBackground},
             {"SetMusic", SetMusic},
-            {"GoNextFile", GoNextFile}
+            {"GoNextFile", GoNextFile},
+            {"CreateOptionBlock", CreateOptionBlock}
         };
 
-        public static string GetNextLine()
+        public static void GoNextLine()
         {
             if ((LineOfStory + 1) < CurrentStory.Count())
                 LineOfStory++;
@@ -32,41 +33,74 @@ namespace SKA_Novel.Classes.Technical
             if (CurrentStory[LineOfStory][0] == '*')
                 CompilateString(CurrentStory[LineOfStory]);
 
-            return CurrentStory[LineOfStory];
+            ControlsManager.MainText.Text = CurrentStory[LineOfStory];
         }
 
         private static void CompilateString(string codeString)
         {
-            string command = codeString.Substring(1, codeString.IndexOf(':') - 1);
+            string command = codeString.Substring(1, codeString.IndexOf(':') - 1).Trim();
 
             foreach (string commandName in Commands.Keys)
                 if (command == commandName)
                     Commands[command](codeString);
 
-            GetNextLine();
+            GoNextLine();
         }
 
         private static string GetArguments(string codeString)
         {
             return codeString.Substring(
                 codeString.IndexOf(':') + 1,
-                codeString.Length - (codeString.IndexOf(':') + 1));
+                codeString.Length - (codeString.IndexOf(':') + 1)).Trim();
         }
 
-        private static void SetBackground(string codeString)
+        public static void SetBackground(string codeString)
         {
             MediaHelper.SetBackground(GetArguments(codeString));
         }
 
-        private static void SetMusic(string codeString)
+        public static void SetMusic(string codeString)
         {
-
+            MediaHelper.SetGameMusic(GetArguments(codeString));
         }
 
-        private static void GoNextFile(string codeString)
+        public static void GoNextFile(string codeString)
         {
             CurrentStory = MediaHelper.BeatStringToLines(MediaHelper.GetTextFromFile(GetArguments(codeString)));
             LineOfStory = -1;
+        }
+
+        public static void CreateOptionBlock(string codeString)
+        {
+            string[] options = GetArguments(codeString).Split(',');
+            AddOptions(options);
+            ControlsManager.MainTextPanel.Visibility = System.Windows.Visibility.Hidden;
+        }
+
+        private static void AddOptions(string[] optionsFiles)
+        {
+            for (int i = 0; i < optionsFiles.Count(); i++)
+                ControlsManager.OptionPanel.Children.
+                    Add(new Game.GameOption(optionsFiles[i].Trim(), ReadOptionsText()));
+        }
+
+        private static string ReadOptionsText()
+        {
+            LineOfStory++;
+
+            if (CurrentStory[LineOfStory].Trim()[0] == '{')
+            {
+                LineOfStory++;
+                return CurrentStory[LineOfStory];
+            }
+            else
+                if (CurrentStory[LineOfStory].Trim()[0] == '}')
+            {
+                LineOfStory++;
+                LineOfStory++;
+            }
+
+            return CurrentStory[LineOfStory];
         }
     }
 }

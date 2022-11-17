@@ -33,16 +33,14 @@
                         CornerRadius="25" Margin="15" Height="50" Width="50"
                         VerticalAlignment="Bottom" MouseDown="btBack_MouseDown"/>
                 
-                <TextBlock x:Name="txtMainText" Margin="10" FontSize="36" Foreground="#fff" TextAlignment="Center" TextWrapping="Wrap"
-                       Text="Драсьте, это снова я, давно не виделись! Добро пожаловать в SKA Novel!"/>
+                <TextBlock x:Name="txtMainText" Margin="10"/>
 
             </DockPanel>
             
         </Border>
 
         <Border Background="#000" Opacity="0.75" VerticalAlignment="Center" Grid.ColumnSpan="3" CornerRadius="50">
-            <StackPanel x:Name="stckPnlOptions" HorizontalAlignment="Center">
-            </StackPanel>
+            <StackPanel x:Name="stckPnlOptions" HorizontalAlignment="Center"/>
         </Border>
         
     </Grid>

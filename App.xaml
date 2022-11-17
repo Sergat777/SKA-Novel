@@ -4,6 +4,13 @@
              xmlns:local="clr-namespace:SKA_Novel"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="#FFF"/>
+            <Setter Property="FontSize" Value="36"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="TextWrapping" Value="Wrap"/>
+        </Style>
+
     </Application.Resources>
 </Application>

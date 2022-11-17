@@ -63,6 +63,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Classes\Game\GameOption.cs" />
     <Compile Include="Classes\Technical\ControlsManager.cs" />
     <Compile Include="Classes\Technical\MediaHelper.cs" />
     <Compile Include="Classes\Technical\StoryCompilator.cs" />

@@ -26,7 +26,12 @@ namespace SKA_Novel
         public MainWindow()
         {
             InitializeComponent();
+
             ControlsManager.AppMainWindow = this;
+            ControlsManager.OptionPanel = stckPnlOptions;
+            ControlsManager.MainTextPanel = brdMainText;
+            ControlsManager.MainText = txtMainText;
+
             MediaHelper.SetBackground("outside");
             MediaHelper.SetGameMusic("standartMusic");
             StoryCompilator.CurrentStory = MediaHelper.BeatStringToLines(MediaHelper.GetTextFromFile("Test"));
@@ -39,7 +44,7 @@ namespace SKA_Novel
 
         private void brdMainText_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            txtMainText.Text = StoryCompilator.GetNextLine();
+            StoryCompilator.GoNextLine();
         }
     }
 }
