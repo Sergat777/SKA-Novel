@@ -31,10 +31,8 @@ namespace SKA_Novel
             ControlsManager.OptionPanel = stckPnlOptions;
             ControlsManager.MainTextPanel = brdMainText;
             ControlsManager.MainText = txtMainText;
-
-            MediaHelper.SetBackground("outside");
-            MediaHelper.SetGameMusic("standartMusic");
             StoryCompilator.CurrentStory = MediaHelper.BeatStringToLines(MediaHelper.GetTextFromFile("Test"));
+            StoryCompilator.GoNextLine();
         }
 
         private void btBack_MouseDown(object sender, MouseButtonEventArgs e)
