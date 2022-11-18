@@ -38,11 +38,6 @@ namespace SKA_Novel
             StoryCompilator.GoNextLine();
         }
 
-        private void btBack_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            
-        }
-
         private void brdMainText_MouseDown(object sender, MouseButtonEventArgs e)
         {
             StoryCompilator.GoNextLine();
@@ -65,6 +60,26 @@ namespace SKA_Novel
         private void btClose_MouseDown(object sender, MouseButtonEventArgs e)
         {
             Close();
+        }
+
+        private void btSave_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
+        }
+
+        private void btExit_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            Close();
+        }
+
+        private void btLoadGame_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            MessageBox.Show("ВСЕ_ГО_ХО_РО_ШЕ_ГО");
+        }
+
+        private void btStartGame_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+
         }
     }
 }

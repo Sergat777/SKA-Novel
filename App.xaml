@@ -10,6 +10,7 @@
             <Setter Property="FontSize" Value="36"/>
             <Setter Property="TextAlignment" Value="Center"/>
             <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="FontFamily" Value="MS Gothic"/>
         </Style>
 
     </Application.Resources>
