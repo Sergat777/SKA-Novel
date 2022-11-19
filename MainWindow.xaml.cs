@@ -23,6 +23,7 @@ namespace SKA_Novel
     /// </summary>
     public partial class MainWindow : Window
     {
+        bool IsShowedMenu = true;
         public MainWindow()
         {
             InitializeComponent();
@@ -35,9 +36,6 @@ namespace SKA_Novel
             ControlsManager.HeroPositions[0] = HeroPosition1;
             ControlsManager.HeroPositions[1] = HeroPosition2;
             ControlsManager.HeroPositions[2] = HeroPosition3;
-
-            StoryCompilator.CurrentStory = MediaHelper.BeatStringToLines(MediaHelper.GetTextFromFile("PartyScene"));
-            StoryCompilator.GoNextLine();
         }
 
         private void brdMainText_MouseDown(object sender, MouseButtonEventArgs e)
@@ -66,7 +64,7 @@ namespace SKA_Novel
 
         private void btSave_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            new ModalWindows.SaveSuccessWindow().ShowDialog();
         }
 
         private void btLoadGame_MouseDown(object sender, MouseButtonEventArgs e)
@@ -77,6 +75,25 @@ namespace SKA_Novel
         private void btStartGame_MouseDown(object sender, MouseButtonEventArgs e)
         {
             dckPnlMainMenu.Visibility = Visibility.Collapsed;
+            IsShowedMenu = false;
+
+            StoryCompilator.GoNextFile("StartFile");
+            StoryCompilator.GoNextLine();
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (!IsShowedMenu)
+            {
+                if (e.Key == Key.Space || e.Key == Key.Enter)
+                    StoryCompilator.GoNextLine();
+                else
+                    if (e.Key == Key.Escape)
+                {
+                    dckPnlMainMenu.Visibility = Visibility.Visible;
+                    IsShowedMenu = true;
+                }
+            }
         }
     }
 }

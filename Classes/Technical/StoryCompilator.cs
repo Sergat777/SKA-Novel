@@ -31,18 +31,25 @@ namespace SKA_Novel.Classes.Technical
             {"ClearHero", ClearHero}
         };
 
+
         public static void GoNextLine()
         {
-            if ((LineOfStory + 1) < CurrentStory.Count())
-                LineOfStory++;
+            if (ControlsManager.Timer == null || !ControlsManager.Timer.IsTyping)
+            {
+                if ((LineOfStory + 1) < CurrentStory.Count())
+                    LineOfStory++;
 
-            if (CurrentStory[LineOfStory].Trim()[0] == '(')
-                UpdateSpeaker(CurrentStory[LineOfStory].Trim());
+                if (CurrentStory[LineOfStory].Trim()[0] == '(')
+                    UpdateSpeaker(CurrentStory[LineOfStory].Trim());
 
-            if (CurrentStory[LineOfStory].Trim()[0] == '*')
-                CompilateString(CurrentStory[LineOfStory]);
+                if (CurrentStory[LineOfStory].Trim()[0] == '*')
+                    CompilateString(CurrentStory[LineOfStory]);
 
-            new TypingTimer(ControlsManager.MainText, CurrentStory[LineOfStory]);
+                new TypingTimer(ControlsManager.MainText, CurrentStory[LineOfStory]);
+            }
+            else
+                if (ControlsManager.Timer != null)
+                ControlsManager.Timer.FinishTyping();
         }
 
         private static void CompilateString(string codeString)
@@ -98,6 +105,10 @@ namespace SKA_Novel.Classes.Technical
             {
                 ControlsManager.SpeakerName.Text = "СОЗНАНИЕ";
                 ControlsManager.MainText.Foreground = Brushes.Yellow;
+                foreach (DockPanel heroPosition in ControlsManager.HeroPositions)
+                    if (heroPosition.Children.Count > 0)
+                        foreach (Game.CharacterView character in heroPosition.Children)
+                            character.SetBlackout();
             }
             else
             {
@@ -109,6 +120,11 @@ namespace SKA_Novel.Classes.Technical
                                 ControlsManager.MainText.Foreground = character.CharacterColor;
                                 ControlsManager.SpeakerName.Text = character.Character.FullName.
                                     Substring(0, character.Character.FullName.IndexOf('_')).ToUpper();
+                                character.TakeOffBlackout();
+                            }
+                            else
+                            {
+                                character.SetBlackout();
                             }
             }
             LineOfStory++;
@@ -130,8 +146,15 @@ namespace SKA_Novel.Classes.Technical
         private static void AddOptions(string[] optionsFiles)
         {
             for (int i = 0; i < optionsFiles.Count(); i++)
+            {
+                string option = optionsFiles[i];
+                string karma = option.Substring(option.IndexOf('(') + 1, option.IndexOf(')') - (option.IndexOf('(') + 1));
                 ControlsManager.OptionPanel.Children.
-                    Add(new Game.GameOption(optionsFiles[i].Trim(), ReadOptionsText()));
+                    Add(new Game.GameOption(
+                        option.Substring(0, option.IndexOf('(')).Trim(),
+                        Convert.ToByte(karma),
+                        ReadOptionsText()));
+            }
         }
 
         private static string ReadOptionsText()

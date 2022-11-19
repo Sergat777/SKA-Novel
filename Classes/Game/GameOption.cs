@@ -12,10 +12,12 @@ namespace SKA_Novel.Classes.Game
     internal class GameOption : System.Windows.Controls.TextBlock
     {
         public readonly string TargetFile;
+        public readonly byte KarmaWeight;
 
-        public GameOption(string fileName, string optionText)
+        public GameOption(string fileName, byte karmaWeight, string optionText)
         {
             TargetFile = fileName;
+            KarmaWeight = karmaWeight;
             Text = optionText;
             MouseDown += GameOption_MouseDown;
 
@@ -30,6 +32,7 @@ namespace SKA_Novel.Classes.Game
 
         private void GameOption_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            Technical.ControlsManager.KarmaLevel += KarmaWeight;
             Technical.StoryCompilator.GoNextFile(TargetFile);
             Technical.ControlsManager.OptionPanel.Children.Clear();
             Technical.ControlsManager.MainTextPanel.Visibility = Visibility.Visible;

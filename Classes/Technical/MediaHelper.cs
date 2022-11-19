@@ -10,25 +10,23 @@ using System.Windows.Media.Imaging;
 
 namespace SKA_Novel.Classes.Technical
 {
-    public class MediaHelper
+    public static class MediaHelper
     {
         public static readonly string BaseDirectory = AppDomain.CurrentDomain.BaseDirectory + "Resources\\";
         public static readonly string ImagesDirectory = BaseDirectory + "Images\\";
         public static readonly string BackgroundsDirectory = ImagesDirectory + "Backgrounds\\";
         public static readonly string FilesDirectory = BaseDirectory + "Files\\";
         public static readonly string MusicDirectory = BaseDirectory + "Music\\";
+        public static string CurrentFile;
 
         public static MediaPlayer MainMusicPlayer = new MediaPlayer();
 
-        public MediaHelper()
-        {
-            MainMusicPlayer.MediaEnded += MusicFinish;
-        }
-
         public static string GetTextFromFile(string fileName)
         {
+            CurrentFile = fileName;
             StreamReader reader = new StreamReader(FilesDirectory + fileName + ".txt");
             string result = reader.ReadToEnd();
+            reader.Close();
             return result;
         }
 
@@ -50,6 +48,7 @@ namespace SKA_Novel.Classes.Technical
             MainMusicPlayer.Stop();
             MainMusicPlayer.Open(new Uri(MusicDirectory + musicName + ".wav"));
 
+            MainMusicPlayer.MediaEnded += MusicFinish;
             MainMusicPlayer.Play();
         }
 

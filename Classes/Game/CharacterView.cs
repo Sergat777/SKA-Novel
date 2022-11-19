@@ -22,7 +22,7 @@ namespace SKA_Novel.Classes.Game
                 CharacterColor = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFF");
             else
                 CharacterColor = (SolidColorBrush)new BrushConverter().ConvertFrom(characterColor);
-            Source = new BitmapImage( new Uri(Technical.MediaHelper.ImagesDirectory + character.FullName + ".png"));
+            Source = new BitmapImage(new Uri(Technical.MediaHelper.ImagesDirectory + character.FullName + ".png"));
         }
 
         public void SetPosition(byte positionNumber)
@@ -30,5 +30,14 @@ namespace SKA_Novel.Classes.Game
             Technical.ControlsManager.HeroPositions[--positionNumber].Children.Add(this);
         }
 
+        public void SetBlackout()
+        {
+            Source = new BitmapImage(new Uri(Technical.MediaHelper.ImagesDirectory + Character.FullName + "_затемнение.png"));
+        }
+
+        public void TakeOffBlackout()
+        {
+            Source = new BitmapImage(new Uri(Technical.MediaHelper.ImagesDirectory + Character.FullName + ".png"));
+        }
     }
 }

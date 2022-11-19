@@ -6,13 +6,13 @@
         xmlns:local="clr-namespace:SKA_Novel"
         mc:Ignorable="d"
         Title="SKA Novel" Height="450" Width="800" ResizeMode="NoResize" WindowState="Maximized" WindowStyle="None"
-        Background="#000">
+        Background="#000" Keyboard.KeyUp="Window_KeyDown">
 
     <Grid>
 
         <Grid.RowDefinitions>
             <RowDefinition Height="3*"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="1.1*"/>
         </Grid.RowDefinitions>
 
         <Grid.ColumnDefinitions>
@@ -21,11 +21,11 @@
         </Grid.ColumnDefinitions>
 
         <DockPanel x:Name="HeroPosition1" Grid.Column="0" Grid.RowSpan="2"
-                MouseDown="brdMainText_MouseDown" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                MouseDown="brdMainText_MouseDown"/>
         <DockPanel x:Name="HeroPosition2" Grid.ColumnSpan="2" Grid.RowSpan="2"
-                MouseDown="brdMainText_MouseDown" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                MouseDown="brdMainText_MouseDown"/>
         <DockPanel x:Name="HeroPosition3" Grid.Column="1" Grid.RowSpan="2"
-                MouseDown="brdMainText_MouseDown" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"/>
+                MouseDown="brdMainText_MouseDown"/>
 
         <Border x:Name="btClose" BorderBrush="DarkRed" BorderThickness="2" Background="#fff" Grid.Column="2"
                 VerticalAlignment="Top" HorizontalAlignment="Right" CornerRadius="50" Margin="20"
@@ -52,10 +52,10 @@
 
                 </StackPanel>
 
-                <DockPanel MouseDown="brdMainText_MouseDown">
-                    <TextBlock x:Name="txtCurrentCharacter" Margin="20" FontSize="36" FontWeight="Black"
+                <DockPanel MouseDown="brdMainText_MouseDown" Margin="15">
+                    <TextBlock x:Name="txtCurrentCharacter" FontSize="36" FontWeight="Black"
                                HorizontalAlignment="Left" DockPanel.Dock="Top" MouseDown="brdMainText_MouseDown"/>
-                    <TextBlock x:Name="txtMainText" Margin="20" TextAlignment="Left"/>
+                    <TextBlock x:Name="txtMainText" TextAlignment="Left"/>
                 </DockPanel>
 
             </DockPanel>

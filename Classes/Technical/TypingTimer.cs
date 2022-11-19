@@ -16,6 +16,7 @@ namespace SKA_Novel.Classes.Technical
         {
             Interval = TimeSpan.FromMilliseconds(30)
         };
+        public bool IsTyping { get; set; } = true;
         private int _letterIndex = 0;
         private int _textLength;
         private TextBlock _targetTextBlock;
@@ -51,10 +52,16 @@ namespace SKA_Novel.Classes.Technical
             }
             else
             {
+                IsTyping = false;
                 timer.Stop();
             }
         }
 
-
+        public void FinishTyping()
+        {
+            timer.Stop();
+            _targetTextBlock.Text = _content;
+            IsTyping = false;
+        }
     }
 }

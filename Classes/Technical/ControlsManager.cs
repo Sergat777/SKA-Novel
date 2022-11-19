@@ -18,5 +18,7 @@ namespace SKA_Novel.Classes.Technical
         public static DockPanel[] HeroPositions { get; set; } = new DockPanel[3];
         public static TypingTimer Timer { get; set; }
 
+        public static byte KarmaLevel { get; set; } = 0;
+
     }
 }
