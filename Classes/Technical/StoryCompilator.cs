@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -35,7 +36,10 @@ namespace SKA_Novel.Classes.Technical
             if ((LineOfStory + 1) < CurrentStory.Count())
                 LineOfStory++;
 
-            if (CurrentStory[LineOfStory][0] == '*')
+            if (CurrentStory[LineOfStory].Trim()[0] == '(')
+                UpdateSpeaker(CurrentStory[LineOfStory].Trim());
+
+            if (CurrentStory[LineOfStory].Trim()[0] == '*')
                 CompilateString(CurrentStory[LineOfStory]);
 
             new TypingTimer(ControlsManager.MainText, CurrentStory[LineOfStory]);
@@ -72,22 +76,42 @@ namespace SKA_Novel.Classes.Technical
         public static void AddHero(string codeString)
         {
             string[] arguments = GetArguments(codeString).Split(',');
-            byte position = Convert.ToByte(arguments[1]);
+            byte position = Convert.ToByte(arguments[2].Trim());
 
-            if (position == 1)
-                ControlsManager.HeroPosition1.Source = new BitmapImage(new Uri(MediaHelper.ImagesDirectory + arguments[0] + ".png"));
-            if (position == 2)
-                ControlsManager.HeroPosition2.Source = new BitmapImage(new Uri(MediaHelper.ImagesDirectory + arguments[0] + ".png"));
+            Game.Character character = new Game.Character(arguments[0]);
+            Game.CharacterView characterView = new Game.CharacterView(character, arguments[1].Trim());
+            characterView.SetPosition(position);
         }
 
         public static void ClearHero(string codeString)
         {
             byte position = Convert.ToByte(GetArguments(codeString));
 
-            if (position == 1)
-                ControlsManager.HeroPosition1.Source = null;
-            if (position == 2)
-                ControlsManager.HeroPosition2.Source = null;
+            ControlsManager.HeroPositions[--position].Children.Clear();
+        }
+
+        public static void UpdateSpeaker(string speakerString)
+        {
+            string shortName = speakerString.Substring(1, speakerString.Trim().Length - 1).ToUpper();
+
+            if (shortName == "MND")
+            {
+                ControlsManager.SpeakerName.Text = "СОЗНАНИЕ";
+                ControlsManager.MainText.Foreground = Brushes.Yellow;
+            }
+            else
+            {
+                foreach (DockPanel heroPosition in ControlsManager.HeroPositions)
+                    if (heroPosition.Children.Count > 0)
+                        foreach (Game.CharacterView character in heroPosition.Children)
+                            if (character.Character.ShortName == shortName)
+                            {
+                                ControlsManager.MainText.Foreground = character.CharacterColor;
+                                ControlsManager.SpeakerName.Text = character.Character.FullName.
+                                    Substring(0, character.Character.FullName.IndexOf('_')).ToUpper();
+                            }
+            }
+            LineOfStory++;
         }
 
         public static void GoNextFile(string codeString)

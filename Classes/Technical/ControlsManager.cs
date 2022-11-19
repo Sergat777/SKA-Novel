@@ -14,8 +14,8 @@ namespace SKA_Novel.Classes.Technical
         public static StackPanel OptionPanel { get; set; }
         public static Border MainTextPanel { get; set; }
         public static TextBlock MainText { get; set; }
-        public static Image HeroPosition1 { get; set; }
-        public static Image HeroPosition2 { get; set; }
+        public static TextBlock SpeakerName { get; set; }
+        public static DockPanel[] HeroPositions { get; set; } = new DockPanel[3];
         public static TypingTimer Timer { get; set; }
 
     }

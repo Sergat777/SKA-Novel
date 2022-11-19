@@ -31,8 +31,10 @@ namespace SKA_Novel
             ControlsManager.OptionPanel = stckPnlOptions;
             ControlsManager.MainTextPanel = brdMainText;
             ControlsManager.MainText = txtMainText;
-            ControlsManager.HeroPosition1 = imgHeroPosition1;
-            ControlsManager.HeroPosition2 = imgHeroPosition2;
+            ControlsManager.SpeakerName = txtCurrentCharacter;
+            ControlsManager.HeroPositions[0] = HeroPosition1;
+            ControlsManager.HeroPositions[1] = HeroPosition2;
+            ControlsManager.HeroPositions[2] = HeroPosition3;
 
             StoryCompilator.CurrentStory = MediaHelper.BeatStringToLines(MediaHelper.GetTextFromFile("PartyScene"));
             StoryCompilator.GoNextLine();
@@ -67,11 +69,6 @@ namespace SKA_Novel
 
         }
 
-        private void btExit_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            Close();
-        }
-
         private void btLoadGame_MouseDown(object sender, MouseButtonEventArgs e)
         {
             MessageBox.Show("ВСЕ_ГО_ХО_РО_ШЕ_ГО");
@@ -79,7 +76,7 @@ namespace SKA_Novel
 
         private void btStartGame_MouseDown(object sender, MouseButtonEventArgs e)
         {
-
+            dckPnlMainMenu.Visibility = Visibility.Collapsed;
         }
     }
 }

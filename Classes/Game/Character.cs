@@ -9,11 +9,13 @@ namespace SKA_Novel.Classes.Game
 {
     internal class Character
     {
-        public string CharacterName { get; }
+        public string FullName { get; }
+        public string ShortName { get; }
 
         public Character(string characterName)
         {
-            CharacterName = characterName;
+            FullName = characterName;
+            ShortName = characterName.Substring(0, 3).Trim().ToUpper();
         }
     }
 }
