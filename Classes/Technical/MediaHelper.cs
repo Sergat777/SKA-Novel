@@ -57,5 +57,27 @@ namespace SKA_Novel.Classes.Technical
             MainMusicPlayer.Position = TimeSpan.Zero;
             MainMusicPlayer.Play();
         }
+
+        public static void SaveGame()
+        {
+            StreamWriter writer = new StreamWriter(FilesDirectory + "\\SystemFiles\\Save.txt");
+            writer.WriteLine(CurrentFile);
+            writer.WriteLine(StoryCompilator.LineOfStory);
+            writer.WriteLine(ControlsManager.KarmaLevel);
+            writer.Close();
+        }
+
+        public static void LoadGame()
+        {
+            StreamReader reader = new StreamReader(FilesDirectory + "\\SystemFiles\\Save.txt");
+            StoryCompilator.GoNextFile(reader.ReadLine().Trim());
+            int lastString = Convert.ToInt16(reader.ReadLine());
+            StoryCompilator.LineOfStory = -1;
+            ControlsManager.KarmaLevel = Convert.ToInt16(reader.ReadLine());
+            reader.Close();
+
+            while (StoryCompilator.LineOfStory < lastString)
+                StoryCompilator.GoNextLine();
+        }
     }
 }

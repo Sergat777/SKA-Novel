@@ -11,6 +11,8 @@ namespace SKA_Novel.Classes.Technical
     internal class ControlsManager
     {
         public static MainWindow AppMainWindow { get; set; }
+        public static DockPanel DarkScreen { get; set; }
+        public static Grid MainMenu { get; set; }
         public static StackPanel OptionPanel { get; set; }
         public static Border MainTextPanel { get; set; }
         public static TextBlock MainText { get; set; }
@@ -18,7 +20,7 @@ namespace SKA_Novel.Classes.Technical
         public static DockPanel[] HeroPositions { get; set; } = new DockPanel[3];
         public static TypingTimer Timer { get; set; }
 
-        public static byte KarmaLevel { get; set; } = 0;
+        public static int KarmaLevel { get; set; } = 0;
 
     }
 }

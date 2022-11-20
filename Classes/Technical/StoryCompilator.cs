@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
@@ -31,7 +32,8 @@ namespace SKA_Novel.Classes.Technical
             {"ClearHero", ClearHero},
             {"SetHeroEmotion", SetHeroEmotion},
             {"GoThisLine", GoThisLine},
-            {"MirrorHero", MirrorHero}
+            {"MirrorHero", MirrorHero},
+            {"CheckKarma", CheckKarma}
         };
 
 
@@ -81,7 +83,41 @@ namespace SKA_Novel.Classes.Technical
 
         public static void SetBackground(string codeString)
         {
-            MediaHelper.SetBackground(GetArguments(codeString));
+            MainWindow.AllowKeys = false;
+            ControlsManager.DarkScreen.Visibility = System.Windows.Visibility.Visible;
+            _helpVariable = codeString;
+            _timer = new DispatcherTimer() { Interval = TimeSpan.FromMilliseconds(25) };
+            _timer.Tick += ChangeOpacityDarkScreen;
+            _timer.Start();
+            
+        }
+
+        private static DispatcherTimer _timer;
+        private static string _helpVariable;
+        private static bool _opacityIsGrowing = true;
+
+        private static void ChangeOpacityDarkScreen(object sender, EventArgs e)
+        {
+            if (ControlsManager.DarkScreen.Opacity < 1 && _opacityIsGrowing)
+                ControlsManager.DarkScreen.Opacity += 0.05;
+            else
+                ControlsManager.DarkScreen.Opacity -= 0.05;
+
+            if (Math.Round(ControlsManager.DarkScreen.Opacity, 2) == 1)
+            {
+                MediaHelper.SetBackground(GetArguments(_helpVariable));
+                ControlsManager.MainMenu.Visibility = System.Windows.Visibility.Collapsed;
+                _opacityIsGrowing = false;
+            }
+
+            if (Math.Round(ControlsManager.DarkScreen.Opacity, 2) == 0)
+            {
+                _timer.Stop();
+                ControlsManager.DarkScreen.Visibility = System.Windows.Visibility.Collapsed;
+                _opacityIsGrowing = true;
+                MainWindow.AllowKeys = true;
+                ControlsManager.AppMainWindow.Focus();
+            }
         }
 
         public static void SetMusic(string codeString)
@@ -135,7 +171,15 @@ namespace SKA_Novel.Classes.Technical
         {
             string shortName = speakerString.Substring(1, speakerString.Trim().Length - 1).ToUpper();
 
-            if (shortName == "MND")
+            if (shortName == "I")
+            {
+                ControlsManager.SpeakerName.Text = "";
+                foreach (DockPanel heroPosition in ControlsManager.HeroPositions)
+                    if (heroPosition.Children.Count > 0)
+                        foreach (Game.CharacterView character in heroPosition.Children)
+                            character.TakeOffBlackout();
+            }
+            else if (shortName == "MND")
             {
                 ControlsManager.SpeakerName.Text = "СОЗНАНИЕ";
                 ControlsManager.SpeakerName.Foreground = Brushes.Yellow;
@@ -169,6 +213,14 @@ namespace SKA_Novel.Classes.Technical
             LineOfStory = -1;
         }
 
+        public static void CheckKarma(string codeString)
+        {
+            string[] arguments = GetArguments(codeString).Split(',');
+            int needKarma = Convert.ToInt16(arguments[0]);
+            if (ControlsManager.KarmaLevel >= needKarma)
+                GoThisLine(": " + arguments[1]);
+        }
+
         public static void CreateOptionBlock(string codeString)
         {
             string[] options = GetArguments(codeString).Split(',');
@@ -185,7 +237,7 @@ namespace SKA_Novel.Classes.Technical
                 ControlsManager.OptionPanel.Children.
                     Add(new Game.GameOption(
                         option.Substring(0, option.IndexOf('(')).Trim(),
-                        Convert.ToByte(karma),
+                        Convert.ToInt16(karma),
                         ReadOptionsText()));
             }
         }

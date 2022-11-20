@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 using SKA_Novel.Classes.Technical;
 
 
@@ -23,12 +24,14 @@ namespace SKA_Novel
     /// </summary>
     public partial class MainWindow : Window
     {
-        bool IsShowedMenu = true;
+        public static bool AllowKeys { get; set; } = false;
         public MainWindow()
         {
             InitializeComponent();
 
             ControlsManager.AppMainWindow = this;
+            ControlsManager.MainMenu = gridMainMenu;
+            ControlsManager.DarkScreen = DarkScreen;
             ControlsManager.OptionPanel = stckPnlOptions;
             ControlsManager.MainTextPanel = brdMainText;
             ControlsManager.MainText = txtMainText;
@@ -64,35 +67,41 @@ namespace SKA_Novel
 
         private void btSave_MouseDown(object sender, MouseButtonEventArgs e)
         {
+            MediaHelper.SaveGame();
             new ModalWindows.SaveSuccessWindow().ShowDialog();
         }
 
         private void btLoadGame_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            MessageBox.Show("ВСЕ_ГО_ХО_РО_ШЕ_ГО");
+            MediaHelper.LoadGame();
+            StoryCompilator.GoNextLine();
         }
 
         private void btStartGame_MouseDown(object sender, MouseButtonEventArgs e)
         {
-            dckPnlMainMenu.Visibility = Visibility.Collapsed;
-            IsShowedMenu = false;
-
-            StoryCompilator.GoNextFile("NewTest");
+            StoryCompilator.GoNextFile("StartFile");
             StoryCompilator.GoNextLine();
         }
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (!IsShowedMenu)
+            if (e.Key == Key.Escape && StoryCompilator.CurrentStory != null)
+            {
+                if (AllowKeys)
+                {
+                    gridMainMenu.Visibility = Visibility.Visible;
+                    AllowKeys = false;
+                }
+                else
+                {
+                    gridMainMenu.Visibility = Visibility.Collapsed;
+                    AllowKeys = true;
+                }
+            }
+            else if (AllowKeys)
             {
                 if (e.Key == Key.Space || e.Key == Key.Enter)
                     StoryCompilator.GoNextLine();
-                else
-                    if (e.Key == Key.Escape)
-                {
-                    dckPnlMainMenu.Visibility = Visibility.Visible;
-                    IsShowedMenu = true;
-                }
             }
         }
     }

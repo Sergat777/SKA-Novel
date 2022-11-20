@@ -12,9 +12,9 @@ namespace SKA_Novel.Classes.Game
     internal class GameOption : System.Windows.Controls.TextBlock
     {
         public readonly string TargetFile;
-        public readonly byte KarmaWeight;
+        public readonly int KarmaWeight;
 
-        public GameOption(string fileName, byte karmaWeight, string optionText)
+        public GameOption(string fileName, int karmaWeight, string optionText)
         {
             TargetFile = fileName;
             KarmaWeight = karmaWeight;

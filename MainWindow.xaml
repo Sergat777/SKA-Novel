@@ -32,7 +32,7 @@
                 Height="65" Width="65" MouseDown="btClose_MouseDown">
             <Image Source="/bin/Debug/Resources/Images/cancel.png"/>
         </Border>
-
+        
         <Border x:Name="brdMainText" Background="#000" BorderBrush="#fff" BorderThickness="2" Opacity="0.8"
                 CornerRadius="20" Grid.Row="1" Margin="15" Grid.ColumnSpan="2">
 
@@ -67,9 +67,9 @@
             <StackPanel x:Name="stckPnlOptions" HorizontalAlignment="Center"/>
         </Border>
 
-        <Grid x:Name="dckPnlMainMenu" Grid.ColumnSpan="2" Grid.RowSpan="2">
+        <Grid x:Name="gridMainMenu" Grid.ColumnSpan="2" Grid.RowSpan="2">
 
-            <Image Source="/bin/Debug/Resources/Images/Backgrounds/outside.jpg" Stretch="Fill">
+            <Image Source="/Resources/outside.jpg" Stretch="Fill">
                 <Image.Effect>
                     <BlurEffect Radius="10" KernelType="Gaussian"/>
                 </Image.Effect>
@@ -96,5 +96,8 @@
             </Border>
 
         </Grid>
+
+        <DockPanel x:Name="DarkScreen" Background="#000" Grid.ColumnSpan="2" Grid.RowSpan="2"
+                   Opacity="0" Visibility="Collapsed"/>
     </Grid>
 </Window>
