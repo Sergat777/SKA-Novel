@@ -77,7 +77,7 @@ namespace SKA_Novel
             dckPnlMainMenu.Visibility = Visibility.Collapsed;
             IsShowedMenu = false;
 
-            StoryCompilator.GoNextFile("StartFile");
+            StoryCompilator.GoNextFile("NewTest");
             StoryCompilator.GoNextLine();
         }
 

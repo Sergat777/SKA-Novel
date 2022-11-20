@@ -54,7 +54,7 @@
 
                 <DockPanel MouseDown="brdMainText_MouseDown" Margin="15">
                     <TextBlock x:Name="txtCurrentCharacter" FontSize="36" FontWeight="Black"
-                               HorizontalAlignment="Left" DockPanel.Dock="Top" MouseDown="brdMainText_MouseDown"/>
+                               TextAlignment="Left" DockPanel.Dock="Top"/>
                     <TextBlock x:Name="txtMainText" TextAlignment="Left"/>
                 </DockPanel>
 

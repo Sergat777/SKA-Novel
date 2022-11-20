@@ -28,7 +28,10 @@ namespace SKA_Novel.Classes.Technical
             {"GoNextFile", GoNextFile},
             {"CreateOptionBlock", CreateOptionBlock},
             {"AddHero",  AddHero},
-            {"ClearHero", ClearHero}
+            {"ClearHero", ClearHero},
+            {"SetHeroEmotion", SetHeroEmotion},
+            {"GoThisLine", GoThisLine},
+            {"MirrorHero", MirrorHero}
         };
 
 
@@ -69,6 +72,12 @@ namespace SKA_Novel.Classes.Technical
                 codeString.IndexOf(':') + 1,
                 codeString.Length - (codeString.IndexOf(':') + 1)).Trim();
         }
+        public static void GoThisLine(string codeString)
+        {
+            LineOfStory = Convert.ToInt16(GetArguments(codeString).Trim()) - 2; // -1 из-за нумерации строк (тут с 0, там с 1)
+                                                                                // -1 из-за GoNextLine - переходит на след строку
+            GoNextLine();
+        }
 
         public static void SetBackground(string codeString)
         {
@@ -86,8 +95,7 @@ namespace SKA_Novel.Classes.Technical
             byte position = Convert.ToByte(arguments[2].Trim());
 
             Game.Character character = new Game.Character(arguments[0]);
-            Game.CharacterView characterView = new Game.CharacterView(character, arguments[1].Trim());
-            characterView.SetPosition(position);
+            new Game.CharacterView(character, arguments[1].Trim(), position);
         }
 
         public static void ClearHero(string codeString)
@@ -97,6 +105,32 @@ namespace SKA_Novel.Classes.Technical
             ControlsManager.HeroPositions[--position].Children.Clear();
         }
 
+        public static void SetHeroEmotion(string codeString)
+        {
+            string[] arguments = GetArguments(codeString).Split(',');
+            byte position = Convert.ToByte(arguments[1].Trim());
+
+            foreach(Game.CharacterView character in ControlsManager.HeroPositions[--position].Children)
+                if (character.Character.FullName == arguments[0].Trim())
+                {
+                    character.UpdateEmotion(arguments[2].Trim());
+                    break;
+                }
+        }
+
+        public static void MirrorHero(string codeString)
+        {
+            string[] arguments = GetArguments(codeString).Split(',');
+            byte position = Convert.ToByte(arguments[1].Trim());
+
+            foreach (Game.CharacterView character in ControlsManager.HeroPositions[--position].Children)
+                if (character.Character.FullName == arguments[0].Trim())
+                {
+                    character.MirrorImage();
+                    break;
+                }
+        }
+
         public static void UpdateSpeaker(string speakerString)
         {
             string shortName = speakerString.Substring(1, speakerString.Trim().Length - 1).ToUpper();
@@ -104,7 +138,7 @@ namespace SKA_Novel.Classes.Technical
             if (shortName == "MND")
             {
                 ControlsManager.SpeakerName.Text = "СОЗНАНИЕ";
-                ControlsManager.MainText.Foreground = Brushes.Yellow;
+                ControlsManager.SpeakerName.Foreground = Brushes.Yellow;
                 foreach (DockPanel heroPosition in ControlsManager.HeroPositions)
                     if (heroPosition.Children.Count > 0)
                         foreach (Game.CharacterView character in heroPosition.Children)
@@ -117,9 +151,8 @@ namespace SKA_Novel.Classes.Technical
                         foreach (Game.CharacterView character in heroPosition.Children)
                             if (character.Character.ShortName == shortName)
                             {
-                                ControlsManager.MainText.Foreground = character.CharacterColor;
-                                ControlsManager.SpeakerName.Text = character.Character.FullName.
-                                    Substring(0, character.Character.FullName.IndexOf('_')).ToUpper();
+                                ControlsManager.SpeakerName.Foreground = character.CharacterColor;
+                                ControlsManager.SpeakerName.Text = character.Character.FullName.ToUpper();
                                 character.TakeOffBlackout();
                             }
                             else

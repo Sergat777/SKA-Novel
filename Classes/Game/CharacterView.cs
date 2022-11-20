@@ -14,30 +14,55 @@ namespace SKA_Novel.Classes.Game
     {
         public Character Character { get; }
         public SolidColorBrush CharacterColor;
+        public string Emotion = "neutral";
+        public byte CurrentPosition;
 
-        public CharacterView(Character character, string characterColor = "#FFF")
+        public CharacterView(Character character, string characterColor, byte position)
         {
             Character = character;
-            if (string.IsNullOrWhiteSpace(characterColor))
-                CharacterColor = (SolidColorBrush)new BrushConverter().ConvertFrom("#FFF");
-            else
-                CharacterColor = (SolidColorBrush)new BrushConverter().ConvertFrom(characterColor);
-            Source = new BitmapImage(new Uri(Technical.MediaHelper.ImagesDirectory + character.FullName + ".png"));
+            CharacterColor = (SolidColorBrush)new BrushConverter().ConvertFrom(characterColor);
+            CurrentPosition = --position;
+            SetPosition();
         }
 
-        public void SetPosition(byte positionNumber)
+        public void UpdateEmotion(string emotionName)
         {
-            Technical.ControlsManager.HeroPositions[--positionNumber].Children.Add(this);
+            Emotion = emotionName;
+            UpdateImageSource(Emotion);
+        }
+
+        private void UpdateImageSource(string imageName)
+        {
+            if (CurrentPosition == 0)
+                FlowDirection = System.Windows.FlowDirection.RightToLeft;
+            else 
+                FlowDirection = System.Windows.FlowDirection.LeftToRight;
+
+            Source = new BitmapImage(new Uri(Technical.MediaHelper.ImagesDirectory + "\\" + Character.FullName.ToUpper() + "\\" + imageName + ".png"));
+        }
+
+        public void SetPosition()
+        {
+            UpdateImageSource(Emotion);
+            Technical.ControlsManager.HeroPositions[CurrentPosition].Children.Add(this);
         }
 
         public void SetBlackout()
         {
-            Source = new BitmapImage(new Uri(Technical.MediaHelper.ImagesDirectory + Character.FullName + "_затемнение.png"));
+            UpdateImageSource(Emotion + "_blackout");
         }
 
         public void TakeOffBlackout()
         {
-            Source = new BitmapImage(new Uri(Technical.MediaHelper.ImagesDirectory + Character.FullName + ".png"));
+            UpdateImageSource(Emotion);
+        }
+
+        public void MirrorImage()
+        {
+            if (FlowDirection == System.Windows.FlowDirection.LeftToRight)
+                FlowDirection = System.Windows.FlowDirection.RightToLeft;
+            else
+                FlowDirection = System.Windows.FlowDirection.LeftToRight;
         }
     }
 }
