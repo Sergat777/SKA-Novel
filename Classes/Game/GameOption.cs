@@ -20,6 +20,8 @@ namespace SKA_Novel.Classes.Game
             KarmaWeight = karmaWeight;
             Text = optionText;
             MouseDown += GameOption_MouseDown;
+            MouseEnter += GameOption_MouseEnter;
+            MouseLeave += GameOption_MouseLeave;
 
             TextAlignment = TextAlignment.Center;
             TextWrapping = TextWrapping.Wrap;
@@ -28,6 +30,16 @@ namespace SKA_Novel.Classes.Game
             FontStyle = FontStyles.Italic;
             Foreground = Brushes.White;
             Margin = new Thickness(20);
+        }
+
+        private void GameOption_MouseEnter(object sender, MouseEventArgs e)
+        {
+            Foreground = Brushes.Yellow;
+        }
+
+        private void GameOption_MouseLeave(object sender, MouseEventArgs e)
+        {
+            Foreground = Brushes.White;
         }
 
         private void GameOption_MouseDown(object sender, MouseButtonEventArgs e)

@@ -18,6 +18,8 @@ namespace SKA_Novel.Classes.Technical
         public static readonly string FilesDirectory = BaseDirectory + "Files\\";
         public static readonly string MusicDirectory = BaseDirectory + "Music\\";
         public static string CurrentFile;
+        public static string CurrentMusic;
+        public static string CurrentBackground;
 
         public static MediaPlayer MainMusicPlayer = new MediaPlayer();
 
@@ -37,6 +39,7 @@ namespace SKA_Novel.Classes.Technical
 
         public static void SetBackground(string backgroundName)
         {
+            CurrentBackground = backgroundName;
             ControlsManager.AppMainWindow.Background = new ImageBrush()
             {
                 ImageSource = new BitmapImage(new Uri(BackgroundsDirectory + backgroundName + ".jpg"))
@@ -45,6 +48,7 @@ namespace SKA_Novel.Classes.Technical
 
         public static void SetGameMusic(string musicName)
         {
+            CurrentMusic = musicName;
             MainMusicPlayer.Stop();
             MainMusicPlayer.Open(new Uri(MusicDirectory + musicName + ".wav"));
 
@@ -76,7 +80,7 @@ namespace SKA_Novel.Classes.Technical
             ControlsManager.KarmaLevel = Convert.ToInt16(reader.ReadLine());
             reader.Close();
 
-            while (StoryCompilator.LineOfStory < lastString)
+            while (StoryCompilator.LineOfStory < lastString - 1)
                 StoryCompilator.GoNextLine();
         }
     }

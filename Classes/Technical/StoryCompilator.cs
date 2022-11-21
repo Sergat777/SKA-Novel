@@ -83,12 +83,16 @@ namespace SKA_Novel.Classes.Technical
 
         public static void SetBackground(string codeString)
         {
-            MainWindow.AllowKeys = false;
-            ControlsManager.DarkScreen.Visibility = System.Windows.Visibility.Visible;
-            _helpVariable = codeString;
-            _timer = new DispatcherTimer() { Interval = TimeSpan.FromMilliseconds(25) };
-            _timer.Tick += ChangeOpacityDarkScreen;
-            _timer.Start();
+            if (MediaHelper.CurrentBackground != GetArguments(codeString))
+            {
+                MediaHelper.CurrentBackground = GetArguments(codeString);
+                MainWindow.AllowKeys = false;
+                ControlsManager.DarkScreen.Visibility = System.Windows.Visibility.Visible;
+                _helpVariable = codeString;
+                _timer = new DispatcherTimer() { Interval = TimeSpan.FromMilliseconds(40) };
+                _timer.Tick += ChangeOpacityDarkScreen;
+                _timer.Start();
+            }
             
         }
 
@@ -99,9 +103,9 @@ namespace SKA_Novel.Classes.Technical
         private static void ChangeOpacityDarkScreen(object sender, EventArgs e)
         {
             if (ControlsManager.DarkScreen.Opacity < 1 && _opacityIsGrowing)
-                ControlsManager.DarkScreen.Opacity += 0.05;
+                ControlsManager.DarkScreen.Opacity += 0.1;
             else
-                ControlsManager.DarkScreen.Opacity -= 0.05;
+                ControlsManager.DarkScreen.Opacity -= 0.1;
 
             if (Math.Round(ControlsManager.DarkScreen.Opacity, 2) == 1)
             {
@@ -122,7 +126,11 @@ namespace SKA_Novel.Classes.Technical
 
         public static void SetMusic(string codeString)
         {
-            MediaHelper.SetGameMusic(GetArguments(codeString));
+            if (MediaHelper.CurrentMusic != GetArguments(codeString))
+            {
+                MediaHelper.CurrentMusic = GetArguments(codeString);
+                MediaHelper.SetGameMusic(GetArguments(codeString));
+            }
         }
 
         public static void AddHero(string codeString)
