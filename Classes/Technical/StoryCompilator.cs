@@ -24,16 +24,16 @@ namespace SKA_Novel.Classes.Technical
 
         public static Dictionary<String, Command> Commands { get; } = new Dictionary<string, Command>()
         {
-            {"SetBackground", SetBackground},
-            {"SetMusic", SetMusic},
-            {"GoNextFile", GoNextFile},
-            {"CreateOptionBlock", CreateOptionBlock},
-            {"AddHero",  AddHero},
-            {"ClearHero", ClearHero},
-            {"SetHeroEmotion", SetHeroEmotion},
-            {"GoThisLine", GoThisLine},
-            {"MirrorHero", MirrorHero},
-            {"CheckKarma", CheckKarma}
+            {"SetBackground", SetBackground},           // imageName
+            {"SetMusic", SetMusic},                     // musicName
+            {"GoNextFile", GoNextFile},                 // fileName
+            {"CreateOptionBlock", CreateOptionBlock},   // File1(karmaWeight), File2(karmaWeight), .... { Var1, Var2, ... }
+            {"AddHero",  AddHero},                      // characterName, characterColor, position
+            {"ClearHero", ClearHero},                   // position
+            {"SetHeroEmotion", SetHeroEmotion},         // characterName, position, emotionName
+            {"GoThisLine", GoThisLine},                 // lineNumber
+            {"MirrorHero", MirrorHero},                 // characterName, position
+            {"CheckKarma", CheckKarma}                  // needKarmaLevel, lineNumber (go to this line if KarmaLevel < needKarmaLevel)
         };
 
 
